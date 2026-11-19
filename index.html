@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- TUTAJ WPISZ TYTUŁ STRONY NA KARCIE PRZEGLĄDARKI -->
-    <title>Beskidy w Obiektywie | Fotografia Krajobrazowa i Nocna</title>
+    <title>Beskidy i Cieszyn w Obiektywie | Fotografia Krajobrazowa</title>
     <style>
         :root {
             --bg-dark: #0e0e11;
@@ -263,17 +262,11 @@
 </head>
 <body>
 
-    <!-- ==========================================
-         1. SEKCJA NAGŁÓWKA - TUTAJ WPISZ SWOJE DANE
-         ========================================== -->
     <header>
-        <h1>[TWÓJ TYTUŁ, np. <span>Beskidzkie</span> Kadry]</h1>
-        <p>[TWÓJ OPIS, np. Cześć! Jestem [Twoje Imię]. Z aparatem wędruję po okolicach Cieszyna i Beskidach, polując na poranne mgły, wschody słońca i nocne niebo.]</p>
+        <h1><span>Beskidzkie</span> Kadry</h1>
+        <p>Z aparatem wędruję po okolicach Cieszyna i Beskidach, łapiąc poranne mgły, wschody i zachody słońca, przyrodę oraz nocne niebo.</p>
     </header>
 
-    <!-- ==========================================
-         2. BANER PROMUJĄCY APLIKACJĘ FOTOPORA
-         ========================================== -->
     <section class="app-banner">
         <div class="app-box">
             <div class="app-info">
@@ -281,22 +274,18 @@
                 <h2>Planuj idealne światło z <span style="color: var(--gold);">FotoPorą</span></h2>
                 <p>Sprawdź złotą godzinę, błękitną godzinę oraz fazy i pozycję Księżyca, zanim wyruszysz w plener.</p>
             </div>
-            <!-- UWAGA: Upewnij się, że poniższy link prowadzi bezpośrednio do Twojej aplikacji (np. https://github.io) -->
             <a href="https://github.io" target="_blank" rel="noopener" class="app-btn">Otwórz FotoPorę &rarr;</a>
         </div>
     </section>
 
-    <!-- PRZYCISKI KATEGORII -->
     <div class="filters">
         <button class="filter-btn active" data-filter="all">Wszystkie</button>
-        <button class="filter-btn" data-filter="gory">Góry i mgły</button>
+        <button class="filter-btn" data-filter="gory">Góry i przyroda</button>
         <button class="filter-btn" data-filter="noc">Księżyc i noc</button>
     </div>
 
-    <!-- KONTENER NA ZDJĘCIA (GENEROWANY AUTOMATYCZNIE Z LISTY PONIŻEJ) -->
     <main class="gallery" id="gallery"></main>
 
-    <!-- PODGLĄD PEŁNOEKRANOWY (LIGHTBOX) -->
     <div class="lightbox" id="lightbox">
         <span class="lightbox-close" id="lightboxClose">&times;</span>
         <img id="lightboxImg" src="" alt="">
@@ -307,22 +296,43 @@
     </div>
 
     <footer>
-        &copy; <span id="year"></span> [Twoje Imię / Nazwa Strony] &bull; Okolice Cieszyna &amp; Beskidy
+        &copy; <span id="year"></span> Beskidzkie Kadry &bull; Okolice Cieszyna &amp; Beskidy
     </footer>
 
-    <!-- ==========================================
-         3. LISTA TWOICH ZDJĘĆ - TUTAJ DOPISUJESZ KOLEJNE KADRY
-         Kategorie do wyboru: "gory" lub "noc"
-         ========================================== -->
     <script>
         const zdjecia = [
-            { plik: "zdjecia/wschod-czantoria.jpg", tytul: "Poranek ponad morzem mgieł", miejsce: "Wielka Czantoria, Beskid Śląski", kategoria: "gory" },
-            { plik: "zdjecia/ksiezyc-cieszyn.jpg", tytul: "Pełnia Księżyca nad miastem", miejsce: "Okolice Cieszyna", kategoria: "noc" },
-            { plik: "zdjecia/mgly-barania.jpg", tytul: "Złota godzina na szlaku", miejsce: "Barania Góra, Beskidy", kategoria: "gory" }
+            { plik: "zdjecia/nurogęsi.jpg", tytul: "Nurogęsi na wodzie", miejsce: "Okolice Cieszyna", kategoria: "gory" },
+            { plik: "zdjecia/zachód.jpg", tytul: "Zachód słońca", miejsce: "Beskidy / Okolice Cieszyna", kategoria: "gory" }
         ];
 
-        // --- PONIŻEJ KOD OBSŁUGUJĄCY GALERIĘ (NIE TRZEBA EDYTOWAĆ) ---
         const galleryEl = document.getElementById('gallery');
         const lightbox = document.getElementById('lightbox');
         const lightboxImg = document.getElementById('lightboxImg');
         const lightboxTitle = document.getElementById('lightboxTitle');
+        const lightboxLoc = document.getElementById('lightboxLoc');
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        function renderGallery(filter = 'all') {
+            galleryEl.innerHTML = '';
+            const filtered = filter === 'all' ? zdjecia : zdjecia.filter(z => z.kategoria === filter);
+            
+            filtered.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'photo-card';
+                card.innerHTML = `
+                    <img src="${item.plik}" alt="${item.tytul}" loading="lazy">
+                    <div class="photo-meta">
+                        <div class="photo-title">${item.tytul}</div>
+                        <div class="photo-loc">${item.miejsce}</div>
+                    </div>
+                `;
+                card.addEventListener('click', () => {
+                    lightboxImg.src = item.plik;
+                    lightboxTitle.textContent = item.tytul;
+                    lightboxLoc.textContent = item.miejsce;
+                    lightbox.classList.add('open');
+                });
+                galleryEl.appendChild(card);
+            });
+        }
+
