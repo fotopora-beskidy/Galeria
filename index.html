@@ -106,6 +106,8 @@
             padding: 0.9rem 1.8rem;
             border-radius: 10px;
             font-size: 1rem;
+            border: none;
+            cursor: pointer;
             transition: transform 0.2s, background-color 0.2s;
             white-space: nowrap;
         }
@@ -273,7 +275,7 @@
                 <h2>Planuj idealne światło z <span style="color: var(--gold);">FotoPorą</span></h2>
                 <p>Sprawdź złotą i niebieską godzinę, szansę na mgłę, pozycję Księżyca oraz śledzenie trasy GPS przed wyjściem w plener.</p>
             </div>
-            <a href="https://github.io" target="_blank" rel="noopener" class="app-btn">Pobierz aplikację &rarr;</a>
+            <button type="button" class="app-btn" onclick="window.open('https://github.io', '_blank', 'noopener')">Pobierz aplikację &rarr;</button>
         </div>
     </section>
 
@@ -335,4 +337,3 @@
 
         function openLightbox(card) {
             document.getElementById('lightboxImg').src = card.querySelector('img').src;
-            document.getElementById('lightboxTitle').textContent = card.querySelector('.photo-title').textContent;
