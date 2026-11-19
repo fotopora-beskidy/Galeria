@@ -336,3 +336,57 @@
     </section>
 
     <div class="filters">
+            <div class="gallery">
+        <div class="photo-card" data-cat="gory" onclick="openLightbox(this)">
+            <img src="zdjecia/nurogesi.jpg" alt="Nurogęsi na wodzie">
+            <div class="photo-meta">
+                <div class="photo-title">Nurogęsi na wodzie</div>
+                <div class="photo-loc">Okolice Cieszyna</div>
+            </div>
+        </div>
+
+        <div class="photo-card" data-cat="gory" onclick="openLightbox(this)">
+            <img src="zdjecia/zachod.jpg" alt="Złoty zachód słońca">
+            <div class="photo-meta">
+                <div class="photo-title">Złoty zachód słońca</div>
+                <div class="photo-loc">Okolice Cieszyna / Beskidy</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="lightbox" id="lightbox" onclick="if(event.target===this) this.classList.remove('open')">
+        <span class="lightbox-close" onclick="document.getElementById('lightbox').classList.remove('open')">&times;</span>
+        <img id="lightboxImg" src="" alt="">
+        <div class="lightbox-caption">
+            <h3 id="lightboxTitle"></h3>
+            <p id="lightboxLoc"></p>
+        </div>
+    </div>
+
+    <footer>
+        &copy; 2026 Beskidzkie Kadry &bull; Okolice Cieszyna &amp; Beskidy
+    </footer>
+
+    <script>
+        function filterCards(cat, btn) {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            document.querySelectorAll('.photo-card').forEach(card => {
+                if (cat === 'all' || card.dataset.cat === cat) {
+                    card.classList.remove('hidden');
+                } else {
+                    card.classList.add('hidden');
+                }
+            });
+        }
+
+        function openLightbox(card) {
+            document.getElementById('lightboxImg').src = card.querySelector('img').src;
+            document.getElementById('lightboxTitle').textContent = card.querySelector('.photo-title').textContent;
+            document.getElementById('lightboxLoc').textContent = card.querySelector('.photo-loc').textContent;
+            document.getElementById('lightbox').classList.add('open');
+        }
+    </script>
+</body>
+</html>
+
