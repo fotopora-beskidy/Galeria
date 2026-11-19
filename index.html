@@ -51,7 +51,6 @@
             font-size: 1rem;
         }
 
-        /* BANER FOTOPORA */
         .app-banner {
             max-width: 1150px;
             margin: 0.5rem auto 2rem;
@@ -120,7 +119,6 @@
             transform: translateY(-2px);
         }
 
-        /* SIATKA FUNKCJI I TECHNOLOGII */
         .app-features {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -148,7 +146,6 @@
             line-height: 1.4;
         }
 
-        /* FILTRY KATEGORII */
         .filters {
             display: flex;
             justify-content: center;
@@ -176,7 +173,6 @@
             font-weight: 600;
         }
 
-        /* SIATKA GALERII */
         .gallery {
             max-width: 1150px;
             margin: 0 auto 4rem;
@@ -228,7 +224,6 @@
             font-size: 0.85rem;
         }
 
-        /* LIGHTBOX */
         .lightbox {
             display: none;
             position: fixed;
@@ -311,7 +306,7 @@
                     <h2>Planuj idealne światło z <span style="color: var(--gold);">FotoPorą</span></h2>
                     <p>Stworzona przeze mnie lekka aplikacja terenowa dla fotografów krajobrazowych i nocnych. Łączy dane astronomiczne, pogodowe oraz nawigację GPS w jednym miejscu – działa bezpośrednio w przeglądarce lub po instalacji na ekranie telefonu.</p>
                 </div>
-                <a href="https://fotopora-beskidy.github.io/foto-pora/" class="app-btn">Otwórz aplikację &rarr;</a>
+                <a href="https://github.io" class="app-btn">Otwórz aplikację &rarr;</a>
             </div>
 
             <div class="app-features">
@@ -336,7 +331,12 @@
     </section>
 
     <div class="filters">
-            <div class="gallery">
+        <button class="filter-btn active" onclick="filterCards('all', this)">Wszystkie</button>
+        <button class="filter-btn" onclick="filterCards('gory', this)">Góry i przyroda</button>
+        <button class="filter-btn" onclick="filterCards('noc', this)">Księżyc i noc</button>
+    </div>
+
+    <div class="gallery">
         <div class="photo-card" data-cat="gory" onclick="openLightbox(this)">
             <img src="zdjecia/nurogesi.jpg" alt="Nurogęsi na wodzie">
             <div class="photo-meta">
@@ -389,4 +389,3 @@
     </script>
 </body>
 </html>
-
