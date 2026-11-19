@@ -27,7 +27,6 @@
             line-height: 1.6;
         }
 
-        /* NAGŁÓWEK */
         header {
             text-align: center;
             padding: 4rem 1.5rem 2.5rem;
@@ -52,7 +51,6 @@
             font-size: 1.1rem;
         }
 
-        /* BANER FOTOPORA */
         .app-banner {
             max-width: 1100px;
             margin: 1rem auto 3rem;
@@ -117,7 +115,6 @@
             transform: translateY(-2px);
         }
 
-        /* FILTRY KATEGORII */
         .filters {
             display: flex;
             justify-content: center;
@@ -145,7 +142,6 @@
             font-weight: 600;
         }
 
-        /* SIATKA GALERII */
         .gallery {
             max-width: 1200px;
             margin: 0 auto 4rem;
@@ -175,6 +171,7 @@
             height: 260px;
             object-fit: cover;
             display: block;
+            background: #121216;
         }
 
         .photo-meta {
@@ -192,7 +189,6 @@
             font-size: 0.85rem;
         }
 
-        /* LIGHTBOX (PEŁNY EKRAN) */
         .lightbox {
             display: none;
             position: fixed;
@@ -245,7 +241,6 @@
             color: var(--gold);
         }
 
-        /* STOPKA */
         footer {
             text-align: center;
             padding: 2rem 1rem;
@@ -301,8 +296,8 @@
 
     <script>
         const zdjecia = [
-            { plik: "zdjecia/nurogesi.jpg", tytul: "Nurogęsi na wodzie", miejsce: "Okolice Cieszyna", kategoria: "gory" },
-            { plik: "zdjecia/zachod.jpg", tytul: "Zachód słońca", miejsce: "Beskidy / Okolice Cieszyna", kategoria: "gory" }
+            { plik: "./zdjecia/nurogesi.jpg", tytul: "Nurogęsi na wodzie", miejsce: "Okolice Cieszyna", kategoria: "gory" },
+            { plik: "./zdjecia/zachod.jpg", tytul: "Zachód słońca", miejsce: "Beskidy / Okolice Cieszyna", kategoria: "gory" }
         ];
 
         const galleryEl = document.getElementById('gallery');
@@ -323,12 +318,6 @@
                 const img = document.createElement('img');
                 img.src = item.plik;
                 img.alt = item.tytul;
-                img.loading = 'lazy';
-                img.onerror = function() {
-                    if (this.src.endsWith('.jpg')) {
-                        this.src = item.plik.replace('.jpg', '.JPG');
-                    }
-                };
 
                 const meta = document.createElement('div');
                 meta.className = 'photo-meta';
@@ -337,3 +326,13 @@
                     <div class="photo-loc">${item.miejsce}</div>
                 `;
 
+                card.appendChild(img);
+                card.appendChild(meta);
+
+                card.addEventListener('click', () => {
+                    lightboxImg.src = img.src;
+                    lightboxTitle.textContent = item.tytul;
+                    lightboxLoc.textContent = item.miejsce;
+                    lightbox.classList.add('open');
+                });
+                galleryEl.appendChild(card);
