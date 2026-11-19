@@ -269,7 +269,7 @@
                 <h2>Planuj idealne światło z <span style="color: var(--gold);">FotoPorą</span></h2>
                 <p>Sprawdź złotą i niebieską godzinę, szansę na mgłę, pozycję Księżyca oraz śledzenie trasy GPS przed wyjściem w plener.</p>
             </div>
-            <a href="https://ahautomatyk-debug.github.io/foto-pora/" target="_blank" rel="noopener" class="app-btn">Pobierz aplikację &rarr;</a>
+            <a href="https://github.io" target="_blank" rel="noopener" class="app-btn">Pobierz aplikację &rarr;</a>
         </div>
     </section>
 
@@ -296,8 +296,7 @@
 
     <script>
         const zdjecia = [
-            { plik: "./zdjecia/nurogesi.jpg", tytul: "Nurogęsi na wodzie", miejsce: "Okolice Cieszyna", kategoria: "gory" },
-            { plik: "./zdjecia/zachod.jpg", tytul: "Zachód słońca", miejsce: "Beskidy / Okolice Cieszyna", kategoria: "gory" }
+            { plik: "./zdjecia/nurogesi.jpg", tytul: "Nurogęsi na wodzie", miejsce: "Okolice Cieszyna", kategoria: "gory" }
         ];
 
         const galleryEl = document.getElementById('gallery');
@@ -333,3 +332,7 @@
                     lightboxImg.src = img.src;
                     lightboxTitle.textContent = item.tytul;
                     lightboxLoc.textContent = item.miejsce;
+                    lightbox.classList.add('open');
+                });
+                galleryEl.appendChild(card);
+            });
