@@ -294,6 +294,15 @@
             </div>
         </div>
 
+        <!-- ZDJĘCIE 2 -->
+        <div class="photo-card" data-cat="gory" onclick="openLightbox(this)">
+            <img src="zdjecia/zachod.jpg" alt="Złoty zachód słońca">
+            <div class="photo-meta">
+                <div class="photo-title">Złoty zachód słońca</div>
+                <div class="photo-loc">Okolice Cieszyna / Beskidy</div>
+            </div>
+        </div>
+
         <!-- ABY DODAĆ KOLEJNE ZDJĘCIE, SKOPIUJ POWYŻSZY BLOK OD <div class="photo-card"... DO </div> -->
 
     </main>
@@ -327,9 +336,3 @@
         function openLightbox(card) {
             document.getElementById('lightboxImg').src = card.querySelector('img').src;
             document.getElementById('lightboxTitle').textContent = card.querySelector('.photo-title').textContent;
-            document.getElementById('lightboxLoc').textContent = card.querySelector('.photo-loc').textContent;
-            document.getElementById('lightbox').classList.add('open');
-        }
-    </script>
-</body>
-</html>
