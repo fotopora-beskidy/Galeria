@@ -147,7 +147,7 @@
             margin: 0 auto 4rem;
             padding: 0 1.5rem;
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
             gap: 1.5rem;
         }
 
@@ -159,6 +159,10 @@
             position: relative;
             border: 1px solid #23232b;
             transition: transform 0.25s, border-color 0.25s;
+        }
+
+        .photo-card.hidden {
+            display: none;
         }
 
         .photo-card:hover {
@@ -274,15 +278,28 @@
     </section>
 
     <div class="filters">
-        <button class="filter-btn active" data-filter="all">Wszystkie</button>
-        <button class="filter-btn" data-filter="gory">Góry i przyroda</button>
-        <button class="filter-btn" data-filter="noc">Księżyc i noc</button>
+        <button class="filter-btn active" onclick="filterCards('all', this)">Wszystkie</button>
+        <button class="filter-btn" onclick="filterCards('gory', this)">Góry i przyroda</button>
+        <button class="filter-btn" onclick="filterCards('noc', this)">Księżyc i noc</button>
     </div>
 
-    <main class="gallery" id="gallery"></main>
+    <main class="gallery">
 
-    <div class="lightbox" id="lightbox">
-        <span class="lightbox-close" id="lightboxClose">&times;</span>
+        <!-- ZDJĘCIE 1 -->
+        <div class="photo-card" data-cat="gory" onclick="openLightbox(this)">
+            <img src="zdjecia/nurogesi.jpg" alt="Nurogęsi na wodzie">
+            <div class="photo-meta">
+                <div class="photo-title">Nurogęsi na wodzie</div>
+                <div class="photo-loc">Okolice Cieszyna</div>
+            </div>
+        </div>
+
+        <!-- ABY DODAĆ KOLEJNE ZDJĘCIE, SKOPIUJ POWYŻSZY BLOK OD <div class="photo-card"... DO </div> -->
+
+    </main>
+
+    <div class="lightbox" id="lightbox" onclick="if(event.target===this) this.classList.remove('open')">
+        <span class="lightbox-close" onclick="document.getElementById('lightbox').classList.remove('open')">&times;</span>
         <img id="lightboxImg" src="" alt="">
         <div class="lightbox-caption">
             <h3 id="lightboxTitle"></h3>
@@ -291,44 +308,28 @@
     </div>
 
     <footer>
-        &copy; <span id="year"></span> Beskidzkie Kadry &bull; Okolice Cieszyna &amp; Beskidy
+        &copy; 2026 Beskidzkie Kadry &bull; Okolice Cieszyna &amp; Beskidy
     </footer>
 
     <script>
-        // LISTA TWOICH ZDJĘĆ (wystarczy podać nazwę pliku z folderu zdjecia/)
-        const zdjecia = [
-            { plik: "nurogesi.jpg", tytul: "Nurogęsi na wodzie", miejsce: "Okolice Cieszyna", kategoria: "gory" }
-        ];
+        function filterCards(cat, btn) {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            document.querySelectorAll('.photo-card').forEach(card => {
+                if (cat === 'all' || card.dataset.cat === cat) {
+                    card.classList.remove('hidden');
+                } else {
+                    card.classList.add('hidden');
+                }
+            });
+        }
 
-        const BASE_URL = "https://githubusercontent.com";
-        const galleryEl = document.getElementById('gallery');
-        const lightbox = document.getElementById('lightbox');
-        const lightboxImg = document.getElementById('lightboxImg');
-        const lightboxTitle = document.getElementById('lightboxTitle');
-        const lightboxLoc = document.getElementById('lightboxLoc');
-        document.getElementById('year').textContent = new Date().getFullYear();
-
-        function renderGallery(filter = 'all') {
-            galleryEl.innerHTML = '';
-            const filtered = filter === 'all' ? zdjecia : zdjecia.filter(z => z.kategoria === filter);
-            
-            filtered.forEach(item => {
-                const fullSrc = BASE_URL + item.plik;
-                const card = document.createElement('div');
-                card.className = 'photo-card';
-                
-                const img = document.createElement('img');
-                img.src = fullSrc;
-                img.alt = item.tytul;
-
-                const meta = document.createElement('div');
-                meta.className = 'photo-meta';
-                meta.innerHTML = `
-                    <div class="photo-title">${item.tytul}</div>
-                    <div class="photo-loc">${item.miejsce}</div>
-                `;
-
-                card.appendChild(img);
-                card.appendChild(meta);
-
-                card.addEventListener('click', () => {
+        function openLightbox(card) {
+            document.getElementById('lightboxImg').src = card.querySelector('img').src;
+            document.getElementById('lightboxTitle').textContent = card.querySelector('.photo-title').textContent;
+            document.getElementById('lightboxLoc').textContent = card.querySelector('.photo-loc').textContent;
+            document.getElementById('lightbox').classList.add('open');
+        }
+    </script>
+</body>
+</html>
