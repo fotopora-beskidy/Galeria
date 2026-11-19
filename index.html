@@ -301,8 +301,8 @@
 
     <script>
         const zdjecia = [
-            { plik: "zdjecia/nurogęsi.jpg", tytul: "Nurogęsi na wodzie", miejsce: "Okolice Cieszyna", kategoria: "gory" },
-            { plik: "zdjecia/zachód.jpg", tytul: "Zachód słońca", miejsce: "Beskidy / Okolice Cieszyna", kategoria: "gory" }
+            { plik: "zdjecia/nurogesi.jpg", tytul: "Nurogęsi na wodzie", miejsce: "Okolice Cieszyna", kategoria: "gory" },
+            { plik: "zdjecia/zachod.jpg", tytul: "Zachód słońca", miejsce: "Beskidy / Okolice Cieszyna", kategoria: "gory" }
         ];
 
         const galleryEl = document.getElementById('gallery');
@@ -319,20 +319,21 @@
             filtered.forEach(item => {
                 const card = document.createElement('div');
                 card.className = 'photo-card';
-                card.innerHTML = `
-                    <img src="${item.plik}" alt="${item.tytul}" loading="lazy">
-                    <div class="photo-meta">
-                        <div class="photo-title">${item.tytul}</div>
-                        <div class="photo-loc">${item.miejsce}</div>
-                    </div>
+                
+                const img = document.createElement('img');
+                img.src = item.plik;
+                img.alt = item.tytul;
+                img.loading = 'lazy';
+                img.onerror = function() {
+                    if (this.src.endsWith('.jpg')) {
+                        this.src = item.plik.replace('.jpg', '.JPG');
+                    }
+                };
+
+                const meta = document.createElement('div');
+                meta.className = 'photo-meta';
+                meta.innerHTML = `
+                    <div class="photo-title">${item.tytul}</div>
+                    <div class="photo-loc">${item.miejsce}</div>
                 `;
-                card.addEventListener('click', () => {
-                    lightboxImg.src = item.plik;
-                    lightboxTitle.textContent = item.tytul;
-                    lightboxLoc.textContent = item.miejsce;
-                    lightbox.classList.add('open');
-                });
-                galleryEl.appendChild(card);
-            });
-        }
 
