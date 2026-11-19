@@ -279,7 +279,16 @@
         <button class="filter-btn" data-filter="noc">Księżyc i noc</button>
     </div>
 
-    <main class="gallery" id="gallery"></main>
+    <main class="gallery" id="gallery">
+        <!-- Bezpośredni kafelek testowy ze zdjęciem -->
+        <div class="photo-card" onclick="openLightbox('https://github.io', 'Nurogęsi na wodzie', 'Okolice Cieszyna')">
+            <img src="https://github.io" alt="Nurogęsi na wodzie" onerror="this.outerHTML='<div style=\'padding:2rem;color:#ff6b6b;text-align:center;\'>Błąd wczytywania pliku:<br>zdjecia/nurogesi.jpg</div>'">
+            <div class="photo-meta">
+                <div class="photo-title">Nurogęsi na wodzie</div>
+                <div class="photo-loc">Okolice Cieszyna</div>
+            </div>
+        </div>
+    </main>
 
     <div class="lightbox" id="lightbox">
         <span class="lightbox-close" id="lightboxClose">&times;</span>
@@ -295,44 +304,21 @@
     </footer>
 
     <script>
-        const zdjecia = [
-            { plik: "./zdjecia/nurogesi.jpg", tytul: "Nurogęsi na wodzie", miejsce: "Okolice Cieszyna", kategoria: "gory" }
-        ];
-
-        const galleryEl = document.getElementById('gallery');
         const lightbox = document.getElementById('lightbox');
         const lightboxImg = document.getElementById('lightboxImg');
         const lightboxTitle = document.getElementById('lightboxTitle');
         const lightboxLoc = document.getElementById('lightboxLoc');
         document.getElementById('year').textContent = new Date().getFullYear();
 
-        function renderGallery(filter = 'all') {
-            galleryEl.innerHTML = '';
-            const filtered = filter === 'all' ? zdjecia : zdjecia.filter(z => z.kategoria === filter);
-            
-            filtered.forEach(item => {
-                const card = document.createElement('div');
-                card.className = 'photo-card';
-                
-                const img = document.createElement('img');
-                img.src = item.plik;
-                img.alt = item.tytul;
+        function openLightbox(src, title, loc) {
+            lightboxImg.src = src;
+            lightboxTitle.textContent = title;
+            lightboxLoc.textContent = loc;
+            lightbox.classList.add('open');
+        }
 
-                const meta = document.createElement('div');
-                meta.className = 'photo-meta';
-                meta.innerHTML = `
-                    <div class="photo-title">${item.tytul}</div>
-                    <div class="photo-loc">${item.miejsce}</div>
-                `;
-
-                card.appendChild(img);
-                card.appendChild(meta);
-
-                card.addEventListener('click', () => {
-                    lightboxImg.src = img.src;
-                    lightboxTitle.textContent = item.tytul;
-                    lightboxLoc.textContent = item.miejsce;
-                    lightbox.classList.add('open');
-                });
-                galleryEl.appendChild(card);
-            });
+        document.getElementById('lightboxClose').addEventListener('click', () => lightbox.classList.remove('open'));
+        lightbox.addEventListener('click', (e) => { if (e.target === lightbox) lightbox.classList.remove('open'); });
+    </script>
+</body>
+</html>
