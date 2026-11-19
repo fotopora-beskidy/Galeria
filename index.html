@@ -273,7 +273,7 @@
                 <h2>Planuj idealne światło z <span style="color: var(--gold);">FotoPorą</span></h2>
                 <p>Sprawdź złotą i niebieską godzinę, szansę na mgłę, pozycję Księżyca oraz śledzenie trasy GPS przed wyjściem w plener.</p>
             </div>
-            <a href="https://github.io" target="_blank" rel="noopener noreferrer" class="app-btn">Pobierz aplikację &rarr;</a>
+            <a href="https://github.io" class="app-btn">Pobierz aplikację &rarr;</a>
         </div>
     </section>
 
@@ -302,8 +302,6 @@
                 <div class="photo-loc">Okolice Cieszyna / Beskidy</div>
             </div>
         </div>
-
-        <!-- ABY DODAĆ KOLEJNE ZDJĘCIE, SKOPIUJ POWYŻSZY BLOK OD <div class="photo-card"... DO </div> -->
 
     </main>
 
@@ -335,3 +333,7 @@
 
         function openLightbox(card) {
             document.getElementById('lightboxImg').src = card.querySelector('img').src;
+            document.getElementById('lightboxTitle').textContent = card.querySelector('.photo-title').textContent;
+            document.getElementById('lightboxLoc').textContent = card.querySelector('.photo-loc').textContent;
+            document.getElementById('lightbox').classList.add('open');
+        }
